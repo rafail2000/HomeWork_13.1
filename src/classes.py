@@ -39,15 +39,15 @@ class Product:
         self.price = price
         self.quantity_in_stock = quantity_in_stock
 
-    def get_name(self):
+    def get_product_name(self):
         return self.name
 
-    def get_description(self):
+    def get_product_description(self):
         return self.description
 
-    def get_price(self):
+    def get_product_price(self):
         return self.price
 
-    def get_quantity_in_stock(self):
+    def get_product_quantity_in_stock(self):
         return self.quantity_in_stock
 

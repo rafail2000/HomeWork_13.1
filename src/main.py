@@ -18,12 +18,12 @@ def main():
         for element in list_product:
             product = Product(element["name"], element["description"],
                               element["price"], element["quantity"])
-            result.append(f'{product.get_name()}\n'
-                          f'{product.get_description()}\n'
-                          f'{product.get_price()}\n'
-                          f'{product.get_quantity_in_stock()}\n\n'
+            result.append(f'{product.get_product_name()}\n'
+                          f'{product.get_product_description()}\n'
+                          f'{product.get_product_price()}\n'
+                          f'{product.get_product_quantity_in_stock()}\n\n'
                           )
-
+    pprint(list_category)
 
 if __name__ == '__main__':
     main()

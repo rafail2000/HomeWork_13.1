@@ -48,17 +48,32 @@ def test_get_goods(class_category):
 
 @pytest.fixture
 def class_product():
-    return Product('Смартфоны', 'Смартфоны, как средство не только коммуникации, но и получение дополнительных функций для удобства жизни',
-      {
-        "name": "Samsung Galaxy C23 Ultra",
-        "description": "256GB, Серый цвет, 200MP камера",
-        "price": 180000.0,
-        "quantity": 5
-      })
+    return Product("Samsung Galaxy C23 Ultra","256GB, Серый цвет, 200MP камера",
+                   180000.0,5)
 
 
 def test_init(class_product):
-    assert class_product.name == 'Смартфоны'
-    assert class_product.description == 'Смартфоны, как средство не только коммуникации, но и получение дополнительных функций для удобства жизни'
+    assert class_product.name == 'Samsung Galaxy C23 Ultra'
+    assert class_product.description == '256GB, Серый цвет, 200MP камера'
     assert class_product.price == 180000.0
     assert class_product.quantity_in_stock == 5
+
+
+def test_product_name(class_product):
+    class_product.get_product_name()
+    assert class_product.get_product_name() == 'Samsung Galaxy C23 Ultra'
+
+
+def test_product_description(class_product):
+    class_product.get_product_description()
+    assert class_product.get_product_description() == '256GB, Серый цвет, 200MP камера'
+
+
+def test_product_price(class_product):
+    class_product.get_product_price()
+    assert class_product.get_product_price() == 180000.0
+
+
+def test_product_quantity_in_stock(class_product):
+    class_product.get_product_quantity_in_stock()
+    assert class_product.get_product_quantity_in_stock() == 5
