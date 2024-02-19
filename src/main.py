@@ -12,7 +12,7 @@ def main():
         category = Category(unit["name"], unit["description"], unit["products"])
         list_category.append(f'{category.get_name()}\n'
                              f'{category.get_description()}\n'
-                             f'{category.get_goods()}\n\n'
+                             f'{category.add_goods()}\n\n'
                              )
         result = []
         for element in list_product:
@@ -24,6 +24,7 @@ def main():
                           f'{product.get_product_quantity_in_stock()}\n\n'
                           )
     pprint(list_category)
+
 
 if __name__ == '__main__':
     main()
