@@ -13,6 +13,7 @@ def load_data():
 
 
 def convert_data(categories):
+    """Получение списков с категориями и товарами"""
     convert_categories = []
     for category in categories:
         convert_products = []
