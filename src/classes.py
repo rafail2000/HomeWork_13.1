@@ -72,15 +72,44 @@ class Product:
         """Получение приватного атрибута price"""
         return self.price
 
-    @classmethod
-    def add_new_product(cls, name, description, price, quantity, list_of_products):
-        """Поиск товаров с похожими названиями"""
-        new_product = cls(name, description, price, quantity)
-        for product in list_of_products:
-            if new_product.name == product.name:
-                if new_product.price > product.price:
-                    product.price = new_product.price
-                product.quantity += new_product.quantity
+    # @classmethod
+    # def add_new_product(cls, name, description, price, quantity, list_of_products=None):
+    #     """Поиск товаров с похожими названиями"""
+    #     new_product = cls(name, description, price, quantity)
+    #     if list_of_products:
+    #         for product in list_of_products:
+    #             if new_product.name == product.name:
+    #                 if new_product.price > product.price:
+    #                     product.price = new_product.price
+    #                 product.quantity += new_product.quantity
+    #     else:
+    #         return cls(name, description, price, quantity)
 
     def __repr__(self):
         return f'Product({self.name}, {self.description}, {self.price}, {self.quantity})'
+
+    @classmethod
+    def add_new_product(cls, product_data, list_of_products=None):
+        name = product_data['name']
+        description = product_data['description']
+        price = product_data['price']
+        quantity = product_data['quantity']
+        new_product = cls(name, description, price, quantity)
+        if list_of_products:
+            for product in list_of_products:
+                if new_product.name == product.name:
+                    if new_product.price > product.price:
+                        product.price = new_product.price
+                    product.quantity += new_product.quantity
+        else:
+            return cls(name, description, price, quantity)
+
+
+samsung_data = {
+    "name": "Samsung Galaxy C23 Ultra",
+    "description": "256GB, Серый цвет, 200MP камера",
+    "price": 180000.0,
+    "quantity": 5
+}
+
+samsung_product = Product.add_new_product(samsung_data)

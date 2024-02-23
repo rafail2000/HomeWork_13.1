@@ -24,7 +24,7 @@ from src.utils import load_data
 #                           f'{product.get_product_quantity_in_stock()}\n\n'
 #                           )
 #     pprint(list_category)
-
-
-if __name__ == '__main__':
-    main()
+#
+#
+# if __name__ == '__main__':
+#     main()
