@@ -100,15 +100,17 @@ class Product:
                 if new_product.name == product.name:
                     if new_product.price > product.price:
                         product.price = new_product.price
+                        print(product.price)
                     product.quantity += new_product.quantity
+                    print(product.quantity)
         else:
-            return cls(name, description, price, quantity)
+            return print(cls(name, description, price, quantity))
 
 
 samsung_data = {
     "name": "Samsung Galaxy C23 Ultra",
     "description": "256GB, Серый цвет, 200MP камера",
-    "price": 180000.0,
+    "price": 185000.0,
     "quantity": 5
 }
 
