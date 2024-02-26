@@ -119,3 +119,4 @@ samsung_another_product = Product('Samsung Galaxy C23 Ultra', 'описание'
 list_of_products = [samsung_another_product]
 # и используем метод, отдавая как словарь, так и список продуктов (в нашем случае один продукт в списке).
 samsung_product = Product.add_new_product(samsung_data, list_of_products)
+
