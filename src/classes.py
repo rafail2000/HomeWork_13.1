@@ -104,14 +104,20 @@ class Product:
                     product.quantity += new_product.quantity
                     print(product.quantity)
         else:
-            return print(cls(name, description, price, quantity))
+            return print(new_product)
 
 
+# создадим словарь для будущего продукта
 samsung_data = {
     "name": "Samsung Galaxy C23 Ultra",
     "description": "256GB, Серый цвет, 200MP камера",
     "price": 185000.0,
     "quantity": 5
 }
+# и создадим продукт, с тем же именем, но с другими данными.
+samsung_another_product = Product('Samsung Galaxy C23 Ultra', 'описание', 200000.0, 15)
+list_of_products = [samsung_another_product]
+# и используем метод, отдавая как словарь, так и список продуктов (в нашем случае один продукт в списке).
+samsung_product = Product.add_new_product(samsung_data, list_of_products)
 
 samsung_product = Product.add_new_product(samsung_data)
