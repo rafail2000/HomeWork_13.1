@@ -90,21 +90,42 @@ class Product:
 
     @classmethod
     def add_new_product(cls, product_data, list_of_products=None):
+        # забираем данные в переменные для удобства работы
         name = product_data['name']
         description = product_data['description']
         price = product_data['price']
         quantity = product_data['quantity']
-        new_product = cls(name, description, price, quantity)
+        # если передан и словарь и список продуктов - попытаться найти в списке продуктов продукт схожий по имени
         if list_of_products:
             for product in list_of_products:
-                if new_product.name == product.name:
-                    if new_product.price > product.price:
-                        product.price = new_product.price
-                        print(product.price)
-                    product.quantity += new_product.quantity
-                    print(product.quantity)
-        else:
-            return print(new_product)
+                if product.name == name:  # если перебираемый продукт по имени равен тому имени продукта, который предлагается создать
+                    # здесь мы нашли продукт, вернем его, сначала установив количество и цену
+                    product.quantity += quantity
+                    if product.price < price:
+                        product.price = price
+                    # установив атрибуты у продукта - возвращаем его
+                    return print(product)
+
+        # здесь мы окажемся в двух случаях: если не передан список продуктов, либо он был передан но в цикле не нашлось совпадения по имени - значит мы должны создать продукт и вернуть его
+        new_product = cls(name, description, price, quantity)
+        return print(new_product)
+
+    # @classmethod
+    # def add_new_product(cls, product_data, list_of_products=None):
+    #     name = product_data['name']
+    #     description = product_data['description']
+    #     price = product_data['price']
+    #     quantity = product_data['quantity']
+    #     if list_of_products:
+    #         for product in list_of_products:
+    #             if product.name == name:
+    #                 product.quantity += quantity
+    #                 if product.price > price:
+    #                     product.price = price
+    #                 return product
+    #     else:
+    #         new_product = cls(name, description, price, quantity)
+    #         return new_product
 
 
 # создадим словарь для будущего продукта
@@ -115,7 +136,7 @@ samsung_data = {
     "quantity": 5
 }
 # и создадим продукт, с тем же именем, но с другими данными.
-samsung_another_product = Product('Samsung Galaxy C23 Ultra', 'описание', 200000.0, 15)
+samsung_another_product = Product('Samsung Galaxy C23 Ultra', 'описание', 2000000.0, 15)
 list_of_products = [samsung_another_product]
 # и используем метод, отдавая как словарь, так и список продуктов (в нашем случае один продукт в списке).
 samsung_product = Product.add_new_product(samsung_data, list_of_products)
