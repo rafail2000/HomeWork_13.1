@@ -100,18 +100,3 @@ class Product:
         # здесь мы окажемся в двух случаях: если не передан список продуктов, либо он был передан но в цикле не нашлось совпадения по имени - значит мы должны создать продукт и вернуть его
         new_product = cls(name, description, price, quantity)
         return new_product
-
-
-# создадим словарь для будущего продукта
-samsung_data = {
-    "name": "Samsung Galaxy C23 Ultra",
-    "description": "256GB, Серый цвет, 200MP камера",
-    "price": 185000.0,
-    "quantity": 5
-}
-# и создадим продукт, с тем же именем, но с другими данными.
-samsung_another_product = Product('Samsung Galaxy C23 Ultra', 'описание', 200000.0, 15)
-list_of_products = [samsung_another_product]
-# и используем метод, отдавая как словарь, так и список продуктов (в нашем случае один продукт в списке).
-samsung_product = Product.add_new_product(samsung_data, list_of_products)
-print(samsung_product)
