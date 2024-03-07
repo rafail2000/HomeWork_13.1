@@ -36,8 +36,10 @@ class Category:
     @property
     def __str__(self):
         """Получение имени, цены и остатка"""
+        current_list = []
         for product in self.__goods:
-            return f'{product.name}, {product.price} руб. Остаток: {product.quantity} шт.'
+            current_list.append(f'{product.name}, {product.price} руб. Остаток: {product.quantity} шт.')
+        return current_list
 
     def __repr__(self):
         return f'Category({self.name}, {self.description}, {self.__goods})'
