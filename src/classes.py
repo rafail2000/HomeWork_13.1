@@ -25,13 +25,19 @@ class Category:
         """Добавление данных с приватного атрибута __goods"""
         self.__goods.append(product)
 
+    # @property
+    # def get_product(self):
+    #     """Получение имени, цены и остатка"""
+    #     current_list = []
+    #     for product in self.__goods:
+    #         current_list.append(f'{product.name}, {product.price} руб. Остаток: {product.quantity} шт.')
+    #     return current_list
+
     @property
-    def get_product(self):
+    def __str__(self):
         """Получение имени, цены и остатка"""
-        current_list = []
         for product in self.__goods:
-            current_list.append(f'{product.name}, {product.price} руб. Остаток: {product.quantity} шт.')
-        return current_list
+            return f'{product.name}, {product.price} руб. Остаток: {product.quantity} шт.'
 
     def __repr__(self):
         return f'Category({self.name}, {self.description}, {self.__goods})'
@@ -70,11 +76,9 @@ class Product:
         else:
             self.__price = new_price
 
-
     def get_product_price(self):
         """Получение приватного атрибута price"""
         return self.price
-
 
     def __repr__(self):
         return f'Product({self.name}, {self.description}, {self.price}, {self.quantity})'
@@ -100,3 +104,6 @@ class Product:
         # здесь мы окажемся в двух случаях: если не передан список продуктов, либо он был передан но в цикле не нашлось совпадения по имени - значит мы должны создать продукт и вернуть его
         new_product = cls(name, description, price, quantity)
         return new_product
+
+    def __str__(self):
+        return f'{self.name}, {self.price} руб. Остаток: {self.quantity} шт.'
