@@ -44,6 +44,10 @@ class Category:
     def __repr__(self):
         return f'Category({self.name}, {self.description}, {self.__goods})'
 
+    def __len__(self):
+        self.count_of_products = len(self.__goods)
+        return f'{self.name}, количество продуктов: {self.count_of_products} шт.'
+
 
 class Product:
     """Классы продукт"""
