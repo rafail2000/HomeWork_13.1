@@ -45,7 +45,11 @@ class Category:
         return f'Category({self.name}, {self.description}, {self.__goods})'
 
     def __len__(self):
-        self.count_of_products = len(self.__goods)
+        """ Общее кол-во продуктов на складе """
+        count_of_products0 = []
+        for product in self.__goods:
+            product.append(count_of_products0)
+        self.count_of_products = len(count_of_products0)
         return f'{self.name}, количество продуктов: {self.count_of_products} шт.'
 
 
@@ -112,4 +116,9 @@ class Product:
         return new_product
 
     def __str__(self):
+        """ Строковое отображение остатка продукта на складе """
         return f'{self.name}, {self.price} руб. Остаток: {self.quantity} шт.'
+
+    def __add__(self, other):
+        """ Сложение сумм продуктов """
+        return self.quantity * self.__price + other.quantity * other.__price
