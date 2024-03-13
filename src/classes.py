@@ -33,7 +33,6 @@ class Category:
     #         current_list.append(f'{product.name}, {product.price} руб. Остаток: {product.quantity} шт.')
     #     return current_list
 
-    @property
     def __str__(self):
         """Получение имени, цены и остатка"""
         current_list = []
@@ -46,11 +45,10 @@ class Category:
 
     def __len__(self):
         """ Общее кол-во продуктов на складе """
-        count_of_products0 = []
+        count_of_products = 0
         for product in self.__goods:
-            product.append(count_of_products0)
-        self.count_of_products = len(count_of_products0)
-        return f'{self.name}, количество продуктов: {self.count_of_products} шт.'
+            count_of_products += product["quantity"]
+        return f'{self.name}, количество продуктов: {count_of_products} шт.'
 
 
 class Product:
