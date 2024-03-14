@@ -35,10 +35,7 @@ class Category:
 
     def __str__(self):
         """Получение имени, цены и остатка"""
-        current_list = []
-        for product in self.__goods:
-            current_list.append(f'{product.name}, {product.price} руб. Остаток: {product.quantity} шт.')
-        return current_list
+        return f'{self.name}, {self.price} руб. Остаток: {len(self.__goods)} шт.'
 
     def __repr__(self):
         return f'Category({self.name}, {self.description}, {self.__goods})'
@@ -47,8 +44,8 @@ class Category:
         """ Общее кол-во продуктов на складе """
         count_of_products = 0
         for product in self.__goods:
-            count_of_products += product["quantity"]
-        return f'{self.name}, количество продуктов: {count_of_products} шт.'
+            count_of_products += product.quantity
+        return f'{self.name}, количество продуктов: {int(count_of_products)} шт.'
 
 
 class Product:
