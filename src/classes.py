@@ -25,27 +25,27 @@ class Category:
         """Добавление данных с приватного атрибута __goods"""
         self.__goods.append(product)
 
-    # @property
-    # def get_product(self):
-    #     """Получение имени, цены и остатка"""
-    #     current_list = []
-    #     for product in self.__goods:
-    #         current_list.append(f'{product.name}, {product.price} руб. Остаток: {product.quantity} шт.')
-    #     return current_list
-
-    def __str__(self):
+    @property
+    def get_product(self):
         """Получение имени, цены и остатка"""
-        return f'{self.name}, {self.price} руб. Остаток: {len(self.__goods)} шт.'
+        current_list = []
+        for product in self.__goods:
+            current_list.append(f'{product.name}, {product.price} руб. Остаток: {product.quantity} шт.')
+        return current_list
 
     def __repr__(self):
         return f'Category({self.name}, {self.description}, {self.__goods})'
 
     def __len__(self):
-        """ Вывод кол-ва продуктов в следующем виде: 'Название категории, количество продуктов: 200 шт.' """
-        count_of_products = 0
+        """ Подсчёт кол-ва продуктов в категории. """
+        self.count_of_products = 0
         for product in self.__goods:
-            count_of_products += product.quantity
-        return f'{self.name}, количество продуктов: {int(count_of_products)} шт.'
+            self.count_of_products += product.quantity
+        return self.count_of_products
+
+    def __str__(self):
+        """ Вывод кол-ва продуктов в следующем виде: 'Название категории, количество продуктов: 200 шт.' """
+        return f'{self.name}, количество продуктов: {self.count_of_products} шт.'
 
 
 class Product:
