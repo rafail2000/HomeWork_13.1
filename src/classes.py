@@ -41,7 +41,7 @@ class Category:
         return f'Category({self.name}, {self.description}, {self.__goods})'
 
     def __len__(self):
-        """ Общее кол-во продуктов на складе """
+        """ Вывод кол-ва продуктов в следующем виде: 'Название категории, количество продуктов: 200 шт.' """
         count_of_products = 0
         for product in self.__goods:
             count_of_products += product.quantity
