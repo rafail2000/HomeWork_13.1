@@ -38,14 +38,14 @@ class Category:
 
     def __len__(self):
         """ Подсчёт кол-ва продуктов в категории. """
-        self.count_of_products = 0
+        product_counter = 0
         for product in self.__goods:
-            self.count_of_products += product.quantity
-        return self.count_of_products
+            product_counter += product.quantity
+        return product_counter
 
     def __str__(self):
         """ Вывод кол-ва продуктов в следующем виде: 'Название категории, количество продуктов: 200 шт.' """
-        return f'{self.name}, количество продуктов: {self.count_of_products} шт.'
+        return f'Название категории {self.name}, количество продуктов: {len(self)} шт.'
 
 
 class Product:
