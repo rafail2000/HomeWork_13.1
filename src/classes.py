@@ -121,7 +121,9 @@ class Product:
 
     def __add__(self, other):
         """ Сложение сумм продуктов """
-        return self.quantity * self.__price + other.quantity * other.__price
+        if isinstance(self.other, type(self.__class__)):
+            return self.quantity * self.__price + other.quantity * other.__price
+        raise TypeError
 
 
 class Smartphone(Product):
