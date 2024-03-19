@@ -106,7 +106,8 @@ class Product:
                     # установив атрибуты у продукта - возвращаем его
                     return product
 
-        # здесь мы окажемся в двух случаях: если не передан список продуктов, либо он был передан но в цикле не нашлось совпадения по имени - значит мы должны создать продукт и вернуть его
+        # здесь мы окажемся в двух случаях: если не передан список продуктов, либо он был передан но в цикле не
+        # нашлось совпадения по имени - значит мы должны создать продукт и вернуть его
         new_product = cls(name, description, price, quantity)
         return new_product
 
@@ -117,3 +118,34 @@ class Product:
     def __add__(self, other):
         """ Сложение сумм продуктов """
         return self.quantity * self.__price + other.quantity * other.__price
+
+
+class Smartphone(Product):
+    """Класс Смортфоны"""
+    performance: float
+    model: str
+    ram: float
+    color: str
+
+    def __init__(self, performance, model, ram, color):
+        """Инициализация производительности, медели, ОЗУ и цвета"""
+        self.performance = performance
+        self.model = model
+        self.ram = ram
+        self.color = color
+
+
+class LawnGrass(Product):
+    """Класс трава газонная"""
+    country_origin: str
+    germination_period: str
+    color: str
+
+    def __init__(self, country_origin, germination_period, color):
+        """Инициализация страны-производителя, срока произростания и цвета"""
+        self.country_origin = country_origin
+        self.germination_period = germination_period
+        self.color = color
+
+
+
