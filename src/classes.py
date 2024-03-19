@@ -57,7 +57,7 @@ class Product:
     color: str
 
     def __init__(self, name, description, price, quantity, color):
-        """Инициализация имени, описания цены и колличества"""
+        """Инициализация имени, описания цены и количества"""
         self.name = name
         self.description = description
         self.__price = price
@@ -73,7 +73,7 @@ class Product:
     def price(self, new_price):
         """Условия изменения цены"""
         if new_price <= 0:
-            print('Цена введена некоректно')
+            print('Цена введена некорректно')
         elif new_price < self.__price:
             user_answer = input('Цена понизилась. Установить эту цену? (y - да, n - нет)')
             if user_answer == 'y':
@@ -97,10 +97,12 @@ class Product:
         description = product_data['description']
         price = product_data['price']
         quantity = product_data['quantity']
+        color = product_data
         # если передан и словарь и список продуктов - попытаться найти в списке продуктов продукт схожий по имени
         if list_of_products:
             for product in list_of_products:
-                if product.name == name:  # если перебираемый продукт по имени равен тому имени продукта, который предлагается создать
+                if product.name == name:  # если перебираемый продукт по имени равен тому имени продукта,
+                    # который предлагается создать
                     # здесь мы нашли продукт, вернем его, сначала установив количество и цену
                     product.quantity += quantity
                     if product.price < price:
@@ -108,9 +110,9 @@ class Product:
                     # установив атрибуты у продукта - возвращаем его
                     return product
 
-        # здесь мы окажемся в двух случаях: если не передан список продуктов, либо он был передан но в цикле не
+        # здесь мы окажемся в двух случаях: если не передан список продуктов, либо он был передан, но в цикле не
         # нашлось совпадения по имени - значит мы должны создать продукт и вернуть его
-        new_product = cls(name, description, price, quantity)
+        new_product = cls(name, description, price, quantity, color)
         return new_product
 
     def __str__(self):
@@ -123,13 +125,13 @@ class Product:
 
 
 class Smartphone(Product):
-    """Класс Смортфоны"""
+    """Класс Смартфоны"""
     performance: float
     model: str
     ram: float
 
     def __init__(self, name, description, price, quantity, performance, model, ram, color):
-        """Инициализация производительности, медели, ОЗУ и цвета"""
+        """Инициализация производительности, модели, ОЗУ и цвета"""
         super().__init__(name, description, price, quantity, color)
         """Добавление атрибутов: название, описание, цены, и кол-ва из класса Product"""
         self.performance = performance
@@ -143,7 +145,7 @@ class LawnGrass(Product):
     germination_period: str
 
     def __init__(self, name, description, price, quantity, country_origin, germination_period, color):
-        """Инициализация страны-производителя, срока произростания и цвета"""
+        """Инициализация страны-производителя, срока произрастания и цвета"""
         super().__init__(name, description, price, quantity, color)
         """Добавление атрибутов: название, описание, цены, и кол-ва из класса Product"""
         self.country_origin = country_origin
