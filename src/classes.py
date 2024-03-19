@@ -127,8 +127,10 @@ class Smartphone(Product):
     ram: float
     color: str
 
-    def __init__(self, performance, model, ram, color):
+    def __init__(self, name, description, price, quantity, performance, model, ram, color):
         """Инициализация производительности, медели, ОЗУ и цвета"""
+        super().__init__(name, description, price, quantity)
+        """Добавление атрибутов: название, описание, цены, и кол-ва из класса Product"""
         self.performance = performance
         self.model = model
         self.ram = ram
@@ -141,8 +143,10 @@ class LawnGrass(Product):
     germination_period: str
     color: str
 
-    def __init__(self, country_origin, germination_period, color):
+    def __init__(self, name, description, price, quantity, country_origin, germination_period, color):
         """Инициализация страны-производителя, срока произростания и цвета"""
+        super().__init__(name, description, price, quantity)
+        """Добавление атрибутов: название, описание, цены, и кол-ва из класса Product"""
         self.country_origin = country_origin
         self.germination_period = germination_period
         self.color = color
