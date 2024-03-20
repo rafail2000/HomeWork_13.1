@@ -117,3 +117,10 @@ class Product:
     def __add__(self, other):
         """ Сложение сумм продуктов """
         return self.quantity * self.__price + other.quantity * other.__price
+
+
+class CategoryIterator:
+    """Класс для прохода по товарам категории"""
+
+    def __init__(self, Category):
+
