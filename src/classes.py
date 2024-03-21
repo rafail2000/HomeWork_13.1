@@ -1,3 +1,15 @@
+from abc import ABC, abstractmethod
+
+
+class MixinRepr:
+
+    def __init__(self, *args, **kwargs):
+        print(self.__repr__())
+
+    def __repr__(self):
+        return f'{self.__class__.__name__}, {self.__dict__}'
+
+
 class Category:
     """Класс категории"""
     name: str
@@ -48,7 +60,29 @@ class Category:
         return f'Название категории {self.name}, количество продуктов: {len(self)} шт.'
 
 
-class Product:
+class AbstractProduct(ABC):
+
+    @property
+    @abstractmethod
+    def price(self):
+        pass
+
+    @price.setter
+    @abstractmethod
+    def price(self, new_price):
+        pass
+
+    @abstractmethod
+    def get_product_price(self):
+        pass
+
+    @classmethod
+    @abstractmethod
+    def add_new_product(cls, product_data, list_of_products=None):
+        pass
+
+
+class Product(MixinRepr, AbstractProduct):
     """Классы продукт"""
     name: str
     description: str
@@ -63,6 +97,7 @@ class Product:
         self.__price = price
         self.quantity = quantity
         self.color = color
+        super().__init__()
 
     @property
     def price(self):
@@ -87,8 +122,6 @@ class Product:
         """Получение приватного атрибута price"""
         return self.price
 
-    def __repr__(self):
-        return f'Product({self.name}, {self.description}, {self.price}, {self.quantity})'
 
     @classmethod
     def add_new_product(cls, product_data, list_of_products=None):
@@ -134,11 +167,11 @@ class Smartphone(Product):
 
     def __init__(self, name, description, price, quantity, performance, model, ram, color):
         """Инициализация производительности, модели, ОЗУ и цвета"""
-        super().__init__(name, description, price, quantity, color)
-        """Добавление атрибутов: название, описание, цены, и кол-ва из класса Product"""
         self.performance = performance
         self.model = model
         self.ram = ram
+        super().__init__(name, description, price, quantity, color)
+        """Добавление атрибутов: название, описание, цены, и кол-ва из класса Product"""
 
 
 class LawnGrass(Product):
@@ -148,10 +181,13 @@ class LawnGrass(Product):
 
     def __init__(self, name, description, price, quantity, country_origin, germination_period, color):
         """Инициализация страны-производителя, срока произрастания и цвета"""
-        super().__init__(name, description, price, quantity, color)
-        """Добавление атрибутов: название, описание, цены, и кол-ва из класса Product"""
         self.country_origin = country_origin
         self.germination_period = germination_period
+        super().__init__(name, description, price, quantity, color)
+        """Добавление атрибутов: название, описание, цены, и кол-ва из класса Product"""
+
+
+l = LawnGrass("grass", "description", 1, 2, "3","4","5")
 
 
 
