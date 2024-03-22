@@ -154,6 +154,3 @@ class LawnGrass(Product):
         """Добавление атрибутов: название, описание, цены, и кол-ва из класса Product"""
         self.country_origin = country_origin
         self.germination_period = germination_period
-
-
-
