@@ -1,6 +1,6 @@
 import pytest
 
-from src.classes import Category, Product, Smartphone, LawnGrass
+from src.classes import Smartphone, LawnGrass
 
 
 def test_sum_product_error():
@@ -41,7 +41,8 @@ def test_sum_product():
 # @pytest.fixture
 # def class_category():
 #     return Category('Смартфоны',
-#                     'Смартфоны, как средство не только коммуникации, но и получение дополнительных функций для удобства жизни',
+#                     'Смартфоны, как средство не только коммуникации,
+#                     но и получение дополнительных функций для удобства жизни',
 #                     {
 #                         "name": "Samsung Galaxy C23 Ultra",
 #                         "description": "256GB, Серый цвет, 200MP камера",
@@ -52,7 +53,8 @@ def test_sum_product():
 #
 # def test_category_init(class_category):
 #     assert class_category.name == 'Смартфоны'
-#     assert class_category.description == 'Смартфоны, как средство не только коммуникации, но и получение дополнительных функций для удобства жизни'
+#     assert class_category.description == 'Смартфоны, как средство не только коммуникации,
+#     но и получение дополнительных функций для удобства жизни'
 #     assert class_category.goods == {
 #         "name": "Samsung Galaxy C23 Ultra",
 #         "description": "256GB, Серый цвет, 200MP камера",
@@ -70,7 +72,8 @@ def test_sum_product():
 #
 # def test_get_description(class_category):
 #     class_category.get_description()
-#     assert class_category.get_description() == 'Смартфоны, как средство не только коммуникации, но и получение дополнительных функций для удобства жизни'
+#     assert class_category.get_description() == 'Смартфоны, как средство не только коммуникации,
+#     но и получение дополнительных функций для удобства жизни'
 #
 #
 # def test_get_goods(class_category):
