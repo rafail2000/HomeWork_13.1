@@ -68,7 +68,9 @@ class Category(AbstractCategoryOrder):
 
     def add_goods(self, product):
         """Добавление данных с приватного атрибута __goods"""
-        self.__goods.append(product)
+        if isinstance(product, self.__class__) and isinstance(self, product.__class__):
+            self.__goods.append(product)
+        raise TypeError
 
     @property
     def get_product(self):
@@ -222,4 +224,3 @@ class LawnGrass(Product):
         """Добавление атрибутов: название, описание, цены, и кол-ва из класса Product"""
 
 
-l = LawnGrass("grass", "description", 1, 2, "3", "4", "5")
