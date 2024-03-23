@@ -10,20 +10,53 @@ class MixinRepr:
         return f'{self.__class__.__name__}, {self.__dict__}'
 
 
-class Category:
+class AbstractCategoryOrder(ABC):
+    """ Абстрактный класс для категории и заказа """
+
+    product = str
+    quantity = int
+
+    @abstractmethod
+    def __init__(self, product, quantity):
+        self.product = product
+        self.quantity = quantity
+
+    @abstractmethod
+    def get_total_cost(self):
+        pass
+
+
+class Order(AbstractCategoryOrder):
+    """ Класс заказа """
+
+    def __init__(self, product, quantity):
+        super().__init__(product, quantity)
+
+    def get_product(self):
+        return self.product
+
+    def get_quantity(self):
+        return self.quantity
+
+    def get_total_cost(self):
+        return self.product * self.quantity
+
+
+class Category(AbstractCategoryOrder):
     """Класс категории"""
-    name: str
+
     description: str
     goods: list
 
     total_numbers_of_category = 0
     unique_goods = 0
 
-    def __init__(self, name, description, goods):
+    def __init__(self, name, description, goods, product):
         """Инициализация имени, описания и товаров"""
         self.name = name
         self.description = description
         self.__goods = goods
+        super().__init__(name, product)
 
         Category.total_numbers_of_category += 1
         Category.unique_goods += 1
@@ -58,6 +91,9 @@ class Category:
     def __str__(self):
         """ Вывод кол-ва продуктов в следующем виде: 'Название категории, количество продуктов: 200 шт.' """
         return f'Название категории {self.name}, количество продуктов: {len(self)} шт.'
+
+    def get_total_cost(self):
+        return self.product * self.quantity
 
 
 class AbstractProduct(ABC):
@@ -121,7 +157,6 @@ class Product(MixinRepr, AbstractProduct):
     def get_product_price(self):
         """Получение приватного атрибута price"""
         return self.price
-
 
     @classmethod
     def add_new_product(cls, product_data, list_of_products=None):
@@ -187,7 +222,4 @@ class LawnGrass(Product):
         """Добавление атрибутов: название, описание, цены, и кол-ва из класса Product"""
 
 
-l = LawnGrass("grass", "description", 1, 2, "3","4","5")
-
-
-
+l = LawnGrass("grass", "description", 1, 2, "3", "4", "5")
