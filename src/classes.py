@@ -1,17 +1,62 @@
-class Category:
+from abc import ABC, abstractmethod
+
+
+class MixinRepr:
+
+    def __init__(self, *args, **kwargs):
+        print(self.__repr__())
+
+    def __repr__(self):
+        return f'{self.__class__.__name__}, {self.__dict__}'
+
+
+class AbstractCategoryOrder(ABC):
+    """ Абстрактный класс для категории и заказа """
+
+    product = str
+    quantity = int
+
+    @abstractmethod
+    def __init__(self, product, quantity):
+        self.product = product
+        self.quantity = quantity
+
+    @abstractmethod
+    def get_total_cost(self):
+        pass
+
+
+class Order(AbstractCategoryOrder):
+    """ Класс заказа """
+
+    def __init__(self, product, quantity):
+        super().__init__(product, quantity)
+
+    def get_product(self):
+        return self.product
+
+    def get_quantity(self):
+        return self.quantity
+
+    def get_total_cost(self):
+        return self.product * self.quantity
+
+
+class Category(AbstractCategoryOrder):
     """Класс категории"""
-    name: str
+
     description: str
     goods: list
 
     total_numbers_of_category = 0
     unique_goods = 0
 
-    def __init__(self, name, description, goods):
+    def __init__(self, name, description, goods, product):
         """Инициализация имени, описания и товаров"""
         self.name = name
         self.description = description
         self.__goods = goods
+        super().__init__(name, product)
 
         Category.total_numbers_of_category += 1
         Category.unique_goods += 1
@@ -49,8 +94,33 @@ class Category:
         """ Вывод кол-ва продуктов в следующем виде: 'Название категории, количество продуктов: 200 шт.' """
         return f'Название категории {self.name}, количество продуктов: {len(self)} шт.'
 
+    def get_total_cost(self):
+        return self.product * self.quantity
 
-class Product:
+
+class AbstractProduct(ABC):
+
+    @property
+    @abstractmethod
+    def price(self):
+        pass
+
+    @price.setter
+    @abstractmethod
+    def price(self, new_price):
+        pass
+
+    @abstractmethod
+    def get_product_price(self):
+        pass
+
+    @classmethod
+    @abstractmethod
+    def add_new_product(cls, product_data, list_of_products=None):
+        pass
+
+
+class Product(MixinRepr, AbstractProduct):
     """Классы продукт"""
     name: str
     description: str
@@ -65,6 +135,7 @@ class Product:
         self.__price = price
         self.quantity = quantity
         self.color = color
+        super().__init__()
 
     @property
     def price(self):
@@ -88,9 +159,6 @@ class Product:
     def get_product_price(self):
         """Получение приватного атрибута price"""
         return self.price
-
-    def __repr__(self):
-        return f'Product({self.name}, {self.description}, {self.price}, {self.quantity})'
 
     @classmethod
     def add_new_product(cls, product_data, list_of_products=None):
@@ -136,11 +204,11 @@ class Smartphone(Product):
 
     def __init__(self, name, description, price, quantity, performance, model, ram, color):
         """Инициализация производительности, модели, ОЗУ и цвета"""
-        super().__init__(name, description, price, quantity, color)
-        """Добавление атрибутов: название, описание, цены, и кол-ва из класса Product"""
         self.performance = performance
         self.model = model
         self.ram = ram
+        super().__init__(name, description, price, quantity, color)
+        """Добавление атрибутов: название, описание, цены, и кол-ва из класса Product"""
 
 
 class LawnGrass(Product):
@@ -150,7 +218,9 @@ class LawnGrass(Product):
 
     def __init__(self, name, description, price, quantity, country_origin, germination_period, color):
         """Инициализация страны-производителя, срока произрастания и цвета"""
-        super().__init__(name, description, price, quantity, color)
-        """Добавление атрибутов: название, описание, цены, и кол-ва из класса Product"""
         self.country_origin = country_origin
         self.germination_period = germination_period
+        super().__init__(name, description, price, quantity, color)
+        """Добавление атрибутов: название, описание, цены, и кол-ва из класса Product"""
+
+
