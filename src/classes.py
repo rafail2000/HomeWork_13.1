@@ -222,5 +222,3 @@ class LawnGrass(Product):
         self.germination_period = germination_period
         super().__init__(name, description, price, quantity, color)
         """Добавление атрибутов: название, описание, цены, и кол-ва из класса Product"""
-
-
