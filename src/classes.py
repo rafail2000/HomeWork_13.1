@@ -69,8 +69,11 @@ class Category(AbstractCategoryOrder):
     def add_goods(self, product):
         """Добавление данных с приватного атрибута __goods"""
         if isinstance(product, self.__class__) and isinstance(self, product.__class__):
+            if product.quantity < 1:
+                raise ValueError("Товар с нулевым количеством не может быть добавлен.")
             self.__goods.append(product)
-        raise TypeError
+        else:
+            raise TypeError
 
     @property
     def get_product(self):
@@ -95,7 +98,25 @@ class Category(AbstractCategoryOrder):
         return f'Название категории {self.name}, количество продуктов: {len(self)} шт.'
 
     def get_total_cost(self):
+        """ Вывод общей стоимости. """
         return self.product * self.quantity
+
+    def middle_price(self, sum_of_price=None):
+        """ Вывод средней стоимости товаров. """
+        for product in self.__goods:
+            sum_of_price += product.price
+        try:
+            return sum_of_price / len(self.__goods)
+        except ZeroDivisionError:
+            return 0
+
+
+class ProductExceptions:
+    """ Класс исключений """
+
+    def __init__(self, name, goods, product):
+        """Инициализация имени, описания и товаров"""
+        super().__init__(name, goods, product)
 
 
 class AbstractProduct(ABC):
