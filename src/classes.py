@@ -243,3 +243,20 @@ class LawnGrass(Product):
         self.germination_period = germination_period
         super().__init__(name, description, price, quantity, color)
         """Добавление атрибутов: название, описание, цены, и кол-ва из класса Product"""
+
+
+class MyException(Exception):
+
+    try:
+        if isinstance(product, self.__class__) and isinstance(self, product.__class__):
+            if product.quantity < 1:
+                raise MyException("Товар с нулевым количеством не может быть добавлен.")
+            self.__goods.append(product)
+        else:
+            raise TypeError
+    except MyException:
+        print("что-то пошло не так")
+    else:
+        print("товар успешно добавлен")
+    finally:
+        print("обработка товара закончена")
