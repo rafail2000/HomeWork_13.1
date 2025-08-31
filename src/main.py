@@ -54,6 +54,7 @@ def main():
 
     filtered_data = [i for i in data if i.get('state', False) == type_operation]
 
+
     while True:
         yes_or_not = ("да", "нет")
         up_or_down = ("по возрастанию", "по убыванию")
