@@ -1,6 +1,7 @@
 from src.file_reader_csv_xlsx import (read_csv_file, read_excel_file,
                                       read_json_file)
 from src.utils import process_bank_search
+from collections import Counter
 
 
 def main():
@@ -109,7 +110,8 @@ def main():
     if not (len(filtered_data) > 0):
         print("Не найдено ни одной транзакции, подходящей под ваши условия фильтрации")
     else:
-        print(f"Всего банковских операций в выборке: {len(filtered_data)}\n")
+        sum_operations = Counter([i.get("description") for i in filtered_data])
+        print(f"Всего банковских операций в выборке: {sum_operations}\n")
         if type_file == "JSON":
             for i in filtered_data:
                 if i.get("description") == "Открытие вклада":
@@ -140,7 +142,6 @@ def main():
                           f"{i.get("operationAmount").get('currency').get('name')}")
                     print("*******************")
         else:
-            print(f"Всего банковских операций в выборке: {len(filtered_data)}\n")
             for i in filtered_data:
                 if i.get("description") == "Открытие вклада":
                     print(f"{i.get('date', False)} {i.get('description', False)}\n"
