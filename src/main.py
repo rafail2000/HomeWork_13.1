@@ -1,4 +1,5 @@
-from src.file_reader_csv_xlsx import read_json_file, read_csv_file, read_excel_file
+from src.file_reader_csv_xlsx import (read_csv_file, read_excel_file,
+                                      read_json_file)
 from src.utils import process_bank_search
 
 
