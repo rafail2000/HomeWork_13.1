@@ -23,4 +23,3 @@ if __name__ == "__main__":
     json_path = "../data/operations.json"
     csv_path = "../data/transactions.csv"
     excel_path = "../data/transactions_excel.xlsx"
-    print(read_csv_file(csv_path))
