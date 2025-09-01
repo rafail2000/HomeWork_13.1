@@ -5,18 +5,18 @@ from src.utils import process_bank_search
 def main():
     """ Основная функция для взаимодействия с пользователем """
 
-    type_file = "" # Выбор типа файла JSON, CSV или, XLSX.
-    type_operation = "" # Выбор типа операции EXECUTED, CANCELED или PENDING.
-    sort_on_time = False # Сортировать по времени или нет.
-    sort_up_or_down = False # Сортировать по возрастанию ил по убыванию.
-    only_rub = False # Выводить только рублёвые транзакции, да или нет.
-    sort_on_word = False # сортировать по слову, да или нет.
+    type_file = ""  # Выбор типа файла JSON, CSV или, XLSX.
+    type_operation = ""  # Выбор типа операции EXECUTED, CANCELED или PENDING.
+    sort_on_time = False  # Сортировать по времени или нет.
+    sort_up_or_down = False  # Сортировать по возрастанию ил по убыванию.
+    only_rub = False  # Выводить только рублёвые транзакции, да или нет.
+    sort_on_word = False  # сортировать по слову, да или нет.
 
     while True:
         type_files = ("JSON", "CSV", "XLSX")
 
-        print("""Привет! Добро пожаловать в программу работы 
-с банковскими транзакциями. 
+        print("""Привет! Добро пожаловать в программу работы
+с банковскими транзакциями.
 Выберите необходимый пункт меню:
 1. Получить информацию о транзакциях из JSON-файла
 2. Получить информацию о транзакциях из CSV-файла
@@ -32,7 +32,7 @@ def main():
     while True:
         type_operations = ("executed", "canceled", "pending")
 
-        print("""Введите статус, по которому необходимо выполнить фильтрацию. 
+        print("""Введите статус, по которому необходимо выполнить фильтрацию.
 Доступные для фильтровки статусы: EXECUTED, CANCELED, PENDING""")
         user_input = input("Введите статус: ").lower()
         if user_input not in type_operations:
@@ -49,12 +49,11 @@ def main():
     if type_file == "JSON":
         data = read_json_file(json_path)
     elif type_file == "CSV":
-        data =  read_csv_file(csv_path)
+        data = read_csv_file(csv_path)
     else:
         data = read_excel_file(excel_path)
 
     filtered_data = [i for i in data if i.get('state', False) == type_operation]
-
 
     while True:
         yes_or_not = ("да", "нет")
@@ -96,15 +95,15 @@ def main():
 
     if only_rub:
         if type_file == "JSON":
-            filtered_data = [i for i in filtered_data if i.get("operationAmount").get('currency').get('code').lower() == "rub"]
+            filtered_data = [i for i in filtered_data
+                             if i.get("operationAmount").get('currency').get('code').lower() == "rub"]
         else:
-            filtered_data = [i for i in filtered_data if i.get("currency_code").lower() == "rub"]
-
+            filtered_data = [i for i in filtered_data
+                             if i.get("currency_code").lower() == "rub"]
 
     if sort_on_word:
         user_search = input("Введите текст для поиска: ")
         filtered_data = process_bank_search(filtered_data, user_search)
-
 
     if not (len(filtered_data) > 0):
         print("Не найдено ни одной транзакции, подходящей под ваши условия фильтрации")
@@ -115,22 +114,29 @@ def main():
                 if i.get("description") == "Открытие вклада":
                     print(f"{i.get('date', False)} {i.get('description', False)}\n"
                           f"{i.get("to", False)[:5] + "**" + i.get("to", False)[-4:]}\n"
-                          f"Сумма: {i.get("operationAmount").get("amount")} {i.get("operationAmount").get('currency').get('name')}")
+                          f"Сумма: {i.get("operationAmount").get("amount")} "
+                          f"{i.get("operationAmount").get('currency').get('name')}")
                     print("*******************")
                 elif i.get("description") == "Перевод с карты на карту":
                     print(f"{i.get('date', False)} {i.get('description', False)}\n"
-                          f"{i.get('from', False)[:19] + "**" + " " + "****" + " " + i.get("from", False)[-4:]} -> {i.get('to', False)[:19] + "**" + " " + "****" + " " + i.get("to", False)[-4:]}\n"
-                          f"Сумма: {i.get("operationAmount").get("amount")} {i.get("operationAmount").get('currency').get('name')}")
+                          f"{i.get('from', False)[:19] + "**" + " " + "****" + " " + i.get("from", False)[-4:]} "
+                          f"-> {i.get('to', False)[:19] + "**" + " " + "****" + " " + i.get("to", False)[-4:]}\n"
+                          f"Сумма: {i.get("operationAmount").get("amount")} "
+                          f"{i.get("operationAmount").get('currency').get('name')}")
                     print("*******************")
                 elif i.get("description") == "Перевод организации":
                     print(f"{i.get('date', False)} {i.get('description', False)}\n"
-                          f"{i.get('from', False)[:19] + "**" + " " + "****" + " " + i.get("from", False)[-4:]} -> {i.get("to", False)[:5] + "**" + i.get("to", False)[-4:]}\n"
-                          f"Сумма: {i.get("operationAmount").get("amount")} {i.get("operationAmount").get('currency').get('name')}")
+                          f"{i.get('from', False)[:19] + "**" + " " + "****" + " " + i.get("from", False)[-4:]} "
+                          f"-> {i.get("to", False)[:5] + "**" + i.get("to", False)[-4:]}\n"
+                          f"Сумма: {i.get("operationAmount").get("amount")} "
+                          f"{i.get("operationAmount").get('currency').get('name')}")
                     print("*******************")
                 elif i.get("description") == "Перевод со счета на счет":
                     print(f"{i.get('date', False)} {i.get('description', False)}\n"
-                          f"{i.get("from", False)[:5] + "**" + i.get("from", False)[-4:]} -> {i.get("to", False)[:5] + "**" + i.get("to", False)[-4:]}\n"
-                          f"Сумма: {i.get("operationAmount").get("amount")} {i.get("operationAmount").get('currency').get('name')}")
+                          f"{i.get("from", False)[:5] + "**" + i.get("from", False)[-4:]} "
+                          f"-> {i.get("to", False)[:5] + "**" + i.get("to", False)[-4:]}\n"
+                          f"Сумма: {i.get("operationAmount").get("amount")} "
+                          f"{i.get("operationAmount").get('currency').get('name')}")
                     print("*******************")
         else:
             for i in filtered_data:
@@ -141,20 +147,22 @@ def main():
                     print("*******************")
                 elif i.get("description") == "Перевод с карты на карту":
                     print(f"{i.get('date', False)} {i.get('description', False)}\n"
-                          f"{i.get('from', False)[:19] + "**" + " " + "****" + " " + i.get("from", False)[-4:]} -> {i.get('to', False)[:19] + "**" + " " + "****" + " " + i.get("to", False)[-4:]}\n"
+                          f"{i.get('from', False)[:19] + "**" + " " + "****" + " " + i.get("from", False)[-4:]} "
+                          f"-> {i.get('to', False)[:19] + "**" + " " + "****" + " " + i.get("to", False)[-4:]}\n"
                           f"Сумма: {i.get("amount")} {i.get("currency_name")}")
                     print("*******************")
                 elif i.get("description") == "Перевод организации":
                     print(f"{i.get('date', False)} {i.get('description', False)}\n"
-                          f"{i.get('from', False)[:19] + "**" + " " + "****" + " " + i.get("from", False)[-4:]} -> {i.get("to", False)[:5] + "**" + i.get("to", False)[-4:]}\n"
+                          f"{i.get('from', False)[:19] + "**" + " " + "****" + " " + i.get("from", False)[-4:]} "
+                          f"-> {i.get("to", False)[:5] + "**" + i.get("to", False)[-4:]}\n"
                           f"Сумма: {i.get("amount")} {i.get("currency_name")}")
                     print("*******************")
                 elif i.get("description") == "Перевод со счета на счет":
                     print(f"{i.get('date', False)} {i.get('description', False)}\n"
-                          f"{i.get("from", False)[:5] + "**" + i.get("from", False)[-4:]} -> {i.get("to", False)[:5] + "**" + i.get("to", False)[-4:]}\n"
+                          f"{i.get("from", False)[:5] + "**" + i.get("from", False)[-4:]} "
+                          f"-> {i.get("to", False)[:5] + "**" + i.get("to", False)[-4:]}\n"
                           f"Сумма: {i.get("amount")} {i.get("currency_name")}")
                     print("*******************")
-
 
 
 if __name__ == '__main__':

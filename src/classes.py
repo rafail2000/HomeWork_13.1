@@ -68,9 +68,11 @@ class Category(AbstractCategoryOrder):
 
     def add_goods(self, product):
         """Добавление данных с приватного атрибута __goods"""
-        if isinstance(product, self.__class__) and isinstance(self, product.__class__):
+        if isinstance(product, self.__class__)\
+                and isinstance(self, product.__class__):
             if product.quantity < 1:
-                raise ValueError("Товар с нулевым количеством не может быть добавлен.")
+                raise ValueError("Товар с нулевым \
+                количеством не может быть добавлен.")
             self.__goods.append(product)
         else:
             raise TypeError
@@ -80,7 +82,8 @@ class Category(AbstractCategoryOrder):
         """Получение имени, цены и остатка"""
         current_list = []
         for product in self.__goods:
-            current_list.append(f'{product.name}, {product.price} руб. Остаток: {product.quantity} шт.')
+            current_list.append(f'{product.name},\
+{product.price} руб. Остаток: {product.quantity} шт.')
         return current_list
 
     def __repr__(self):
@@ -94,8 +97,10 @@ class Category(AbstractCategoryOrder):
         return product_counter
 
     def __str__(self):
-        """ Вывод кол-ва продуктов в следующем виде: 'Название категории, количество продуктов: 200 шт.' """
-        return f'Название категории {self.name}, количество продуктов: {len(self)} шт.'
+        """ Вывод кол-ва продуктов в следующем виде:
+        Название категории, количество продуктов: 200 шт. """
+        return (f'Название категории \
+{self.name}, количество продуктов: {len(self)} шт.')
 
     def get_total_cost(self):
         """ Вывод общей стоимости. """
@@ -169,7 +174,8 @@ class Product(MixinRepr, AbstractProduct):
         if new_price <= 0:
             print('Цена введена некорректно')
         elif new_price < self.__price:
-            user_answer = input('Цена понизилась. Установить эту цену? (y - да, n - нет)')
+            user_answer = input('Цена понизилась.\
+            Установить эту цену? (y - да, n - нет)')
             if user_answer == 'y':
                 self.__price = new_price
             else:
@@ -243,20 +249,3 @@ class LawnGrass(Product):
         self.germination_period = germination_period
         super().__init__(name, description, price, quantity, color)
         """Добавление атрибутов: название, описание, цены, и кол-ва из класса Product"""
-
-
-class MyException(Exception):
-
-    try:
-        if isinstance(product, self.__class__) and isinstance(self, product.__class__):
-            if product.quantity < 1:
-                raise MyException("Товар с нулевым количеством не может быть добавлен.")
-            self.__goods.append(product)
-        else:
-            raise TypeError
-    except MyException:
-        print("что-то пошло не так")
-    else:
-        print("товар успешно добавлен")
-    finally:
-        print("обработка товара закончена")

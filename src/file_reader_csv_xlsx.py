@@ -1,5 +1,7 @@
 import json
 import pandas as pd
+
+
 def read_json_file(path):
     """ Чтение JSON файла """
     with open(path, 'r', encoding='utf-8') as file:

@@ -1,7 +1,7 @@
 import re
 
 
-def process_bank_search(data:list[dict], search:str)->list[dict]:
+def process_bank_search(data: list[dict], search: str) -> list[dict]:
     """ Фильтрация списка по описанию """
 
     filtered_list = []
@@ -21,6 +21,3 @@ def process_bank_search(data:list[dict], search:str)->list[dict]:
             filtered_list.append(i)
 
     return filtered_list
-
-
-
