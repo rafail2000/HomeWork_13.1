@@ -1,4 +1,5 @@
 from src.file_reader_csv_xlsx import read_json_file, read_csv_file, read_excel_file
+from src.utils import process_bank_search
 
 
 def main():
@@ -94,19 +95,65 @@ def main():
             filtered_data.sort(key=lambda x: x["date"], reverse=True)
 
     if only_rub:
-        filtered_data = [i for i in filtered_data if i.get("currency_code").lower() == "rub"]
+        if type_file == "JSON":
+            filtered_data = [i for i in filtered_data if i.get("operationAmount").get('currency').get('code').lower() == "rub"]
+        else:
+            filtered_data = [i for i in filtered_data if i.get("currency_code").lower() == "rub"]
 
-    if sort_on_word: # Так или нет???????
-        filtered_data.sort(key=lambda x: x["description"], reverse=True)
+
+    if sort_on_word:
+        user_search = input("Введите текст для поиска: ")
+        filtered_data = process_bank_search(filtered_data, user_search)
 
 
     if not (len(filtered_data) > 0):
         print("Не найдено ни одной транзакции, подходящей под ваши условия фильтрации")
     else:
         print(f"Всего банковских операций в выборке: {len(filtered_data)}\n")
-        for i in filtered_data:
-            print(f"{i.get('date', False)} {i.get('description', False)}\n{i.get('to', False)}\nСумма: {i.get('amount', False)} {i.get('currency_name', False)}.")
-            print("*******************")
+        if type_file == "JSON":
+            for i in filtered_data:
+                if i.get("description") == "Открытие вклада":
+                    print(f"{i.get('date', False)} {i.get('description', False)}\n"
+                          f"{i.get("to", False)[:5] + "**" + i.get("to", False)[-4:]}\n"
+                          f"Сумма: {i.get("operationAmount").get("amount")} {i.get("operationAmount").get('currency').get('name')}")
+                    print("*******************")
+                elif i.get("description") == "Перевод с карты на карту":
+                    print(f"{i.get('date', False)} {i.get('description', False)}\n"
+                          f"{i.get('from', False)[:19] + "**" + " " + "****" + " " + i.get("from", False)[-4:]} -> {i.get('to', False)[:19] + "**" + " " + "****" + " " + i.get("to", False)[-4:]}\n"
+                          f"Сумма: {i.get("operationAmount").get("amount")} {i.get("operationAmount").get('currency').get('name')}")
+                    print("*******************")
+                elif i.get("description") == "Перевод организации":
+                    print(f"{i.get('date', False)} {i.get('description', False)}\n"
+                          f"{i.get('from', False)[:19] + "**" + " " + "****" + " " + i.get("from", False)[-4:]} -> {i.get("to", False)[:5] + "**" + i.get("to", False)[-4:]}\n"
+                          f"Сумма: {i.get("operationAmount").get("amount")} {i.get("operationAmount").get('currency').get('name')}")
+                    print("*******************")
+                elif i.get("description") == "Перевод со счета на счет":
+                    print(f"{i.get('date', False)} {i.get('description', False)}\n"
+                          f"{i.get("from", False)[:5] + "**" + i.get("from", False)[-4:]} -> {i.get("to", False)[:5] + "**" + i.get("to", False)[-4:]}\n"
+                          f"Сумма: {i.get("operationAmount").get("amount")} {i.get("operationAmount").get('currency').get('name')}")
+                    print("*******************")
+        else:
+            for i in filtered_data:
+                if i.get("description") == "Открытие вклада":
+                    print(f"{i.get('date', False)} {i.get('description', False)}\n"
+                          f"{i.get("to", False)[:5] + "**" + i.get("to", False)[-4:]}\n"
+                          f"Сумма: {i.get("amount")} {i.get("currency_name")}")
+                    print("*******************")
+                elif i.get("description") == "Перевод с карты на карту":
+                    print(f"{i.get('date', False)} {i.get('description', False)}\n"
+                          f"{i.get('from', False)[:19] + "**" + " " + "****" + " " + i.get("from", False)[-4:]} -> {i.get('to', False)[:19] + "**" + " " + "****" + " " + i.get("to", False)[-4:]}\n"
+                          f"Сумма: {i.get("amount")} {i.get("currency_name")}")
+                    print("*******************")
+                elif i.get("description") == "Перевод организации":
+                    print(f"{i.get('date', False)} {i.get('description', False)}\n"
+                          f"{i.get('from', False)[:19] + "**" + " " + "****" + " " + i.get("from", False)[-4:]} -> {i.get("to", False)[:5] + "**" + i.get("to", False)[-4:]}\n"
+                          f"Сумма: {i.get("amount")} {i.get("currency_name")}")
+                    print("*******************")
+                elif i.get("description") == "Перевод со счета на счет":
+                    print(f"{i.get('date', False)} {i.get('description', False)}\n"
+                          f"{i.get("from", False)[:5] + "**" + i.get("from", False)[-4:]} -> {i.get("to", False)[:5] + "**" + i.get("to", False)[-4:]}\n"
+                          f"Сумма: {i.get("amount")} {i.get("currency_name")}")
+                    print("*******************")
 
 
 
