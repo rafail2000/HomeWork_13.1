@@ -140,6 +140,7 @@ def main():
                           f"{i.get("operationAmount").get('currency').get('name')}")
                     print("*******************")
         else:
+            print(f"Всего банковских операций в выборке: {len(filtered_data)}\n")
             for i in filtered_data:
                 if i.get("description") == "Открытие вклада":
                     print(f"{i.get('date', False)} {i.get('description', False)}\n"
